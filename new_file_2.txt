@@ -1,0 +1,41 @@
+// Simple todo data model
+const tasks = [
+  { id: 1, text: 'Buy milk', completed: false },
+  { id: 2, text: 'Walk the dog', completed: false },
+  { id: 3, text: 'Read a book', completed: false },
+];
+
+// Grab the <ul> container
+const listEl = document.getElementById('todo-list');
+
+/**
+ * Render the current state of tasks into the DOM.
+ * Each task is a <li> that toggles the `completed` class on click.
+ */
+function render() {
+  // Clear the list
+  listEl.innerHTML = '';
+
+  // Build each list item
+  tasks.forEach(task => {
+    const li = document.createElement('li');
+    li.textContent = task.text;
+
+    // Apply completed class based on task state
+    li.className = task.completed ? 'completed' : '';
+
+    // Store the task id on the element for reference
+    li.dataset.id = task.id;
+
+    // Click toggles completion state and re-renders
+    li.addEventListener('click', () => {
+      task.completed = !task.completed;
+      render();
+    });
+
+    listEl.appendChild(li);
+  });
+}
+
+// Initial render
+render();
