@@ -1,79 +1,34 @@
-/* 
-   Todo V2 – Add toggle complete functionality
-   Features:
-   - Tasks can be marked completed by clicking them
-   - Completed tasks get a line‑through style
-   - Task state is persisted across reloads using localStorage
-*/
+// Handles task creation in the Todo list app
+// ---------------------------------------------------
+// Listens for form submission, creates a new <li> element
+// with the entered task text, appends it to the <ul id="task-list>,
+// and clears the input field.
 
-const STORAGE_KEY = 'todo-v2-tasks';
+// Wait for the DOM to be fully loaded before attaching event listeners
+document.addEventListener('DOMContentLoaded', () => {
+  // Grab references to the DOM elements
+  const form   = document.querySelector('#task-form');   // <form>
+  const input  = document.querySelector('#task-input');  // <input>
+  const list   = document.querySelector('#task-list');   // <ul>
 
-// Grab DOM elements
-const form = document.getElementById('todo-form');
-const input = document.getElementById('new-task');
-const list = document.getElementById('todo-list');
+  // Attach submit handler to the form
+  form.addEventListener('submit', (e) => {
+    e.preventDefault(); // Stop the form from doing a page refresh
 
-/**
- * Load tasks from localStorage or return an empty array
- */
-function loadTasks() {
-  const data = localStorage.getItem(STORAGE_KEY);
-  return data ? JSON.parse(data) : [];
-}
+    // Trim whitespace from the input value
+    const taskText = input.value.trim();
 
-/**
- * Save tasks array to localStorage
- */
-function saveTasks(tasks) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
-}
+    // Only proceed if the input is non-empty
+    if (!taskText) return;
 
-/**
- * Render the task list based on the stored tasks
- */
-function renderTasks() {
-  const tasks = loadTasks();
-  list.innerHTML = ''; // clear existing
-
-  tasks.forEach((task, index) => {
+    // Create a new <li> element for the task
     const li = document.createElement('li');
-    li.textContent = task.text;
-    if (task.completed) li.classList.add('completed');
+    li.textContent = taskText;
 
-    // Toggle completed on click
-    li.addEventListener('click', () => {
-      task.completed = !task.completed;
-      if (task.completed) li.classList.add('completed');
-      else li.classList.remove('completed');
-      saveTasks(tasks);
-    });
-
+    // Append the new <li> to the task list
     list.appendChild(li);
+
+    // Clear the input field for the next task
+    input.value = '';
   });
-}
-
-/**
- * Add a new task to the list
- */
-function addTask(text) {
-  const tasks = loadTasks();
-  tasks.push({ text, completed: false });
-  saveTasks(tasks);
-  renderTasks();
-}
-
-/**
- * Handle form submission
- */
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const text = input.value.trim();
-  if (!text) return;
-  addTask(text);
-  input.value = '';
 });
-
-/**
- * Initial render on page load
- */
-document.addEventListener('DOMContentLoaded', renderTasks);
