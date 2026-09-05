@@ -1,37 +1,33 @@
-import React, { useState } from 'react';
-import TaskItem from './components/TaskItem';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 
-function App() {
-  // Initial list of tasks. In a real app this might be fetched or persisted.
-  const [tasks, setTasks] = useState([
-    { id: 1, text: 'Buy groceries', completed: false },
-    { id: 2, text: 'Call Mom', completed: false },
-  ]);
+export default function App() {
+  const [tasks, setTasks] = useState([]);
+  const [input, setInput] = useState("");
 
-  // Toggle the completed status of a task
-  const toggleCompleted = (id) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task
-      )
-    );
+  const addTask = (e) => {
+    e.preventDefault();
+    if (!input.trim()) return;
+    setTasks([...tasks, input.trim()]);
+    setInput("");
   };
 
   return (
-    <div className="App">
-      <h1>Todo List</h1>
-      <ul>
-        {tasks.map((task) => (
-          <TaskItem
-            key={task.id}
-            task={task}
-            toggleCompleted={toggleCompleted}
-          />
+    <div className="todo-container">
+      <form className="todo-form" onSubmit={addTask}>
+        <input
+          type="text"
+          value={input}
+          placeholder="Add a new task"
+          onChange={(e) => setInput(e.target.value)}
+        />
+        <button type="submit">Add</button>
+      </form>
+      <ul className="todo-list">
+        {tasks.map((task, idx) => (
+          <li key={idx}>{task}</li>
         ))}
       </ul>
     </div>
   );
 }
-
-export default App;

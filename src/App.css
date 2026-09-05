@@ -1,28 +1,96 @@
-.App {
-  font-family: Arial, sans-serif;
-  max-width: 400px;
-  margin: 50px auto;
-  text-align: left;
+/* Global styles for the Todo app */
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+  background-color: #f5f5f5;
+  color: #333;
 }
 
-ul {
+/* Main container that holds the form and list */
+.todo-container {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  display: flex;
+  gap: 1.5rem;
+  /* On larger screens the form and list sit side‑by‑side */
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+/* Form section */
+.todo-form {
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Input field */
+.todo-form input[type="text"] {
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Submit button */
+.todo-form button {
+  padding: 0.75rem;
+  font-size: 1rem;
+  background: #0066cc;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.todo-form button:hover {
+  background: #0052a3;
+}
+
+/* List section */
+.todo-list {
+  flex: 1 1 300px;
   list-style: none;
+  margin: 0;
   padding: 0;
 }
 
-li {
-  padding: 8px 12px;
-  border-bottom: 1px solid #ddd;
-  cursor: pointer;
-  transition: background 0.2s;
+/* Individual list items */
+.todo-list li {
+  padding: 0.75rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+.todo-list li:last-child {
+  border-bottom: none;
 }
 
-li:hover {
-  background: #f9f9f9;
-}
+/* Responsive tweaks for mobile (<600px) */
+@media (max-width: 599px) {
+  /* Stack form and list vertically */
+  .todo-container {
+    flex-direction: column;
+  }
 
-/* Apply line‑through when a task is completed */
-li.completed {
-  text-decoration: line-through;
-  color: #777;
+  /* Make sure inputs and buttons fill the width */
+  .todo-form input[type="text"],
+  .todo-form button {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Slightly reduce font sizes for smaller screens */
+  body {
+    font-size: 14px;
+  }
+  .todo-form button,
+  .todo-form input[type="text"] {
+    font-size: 1rem;
+  }
+  .todo-list li {
+    font-size: 1rem;
+  }
 }
