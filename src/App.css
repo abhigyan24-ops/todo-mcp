@@ -1,0 +1,28 @@
+.App {
+  font-family: Arial, sans-serif;
+  max-width: 400px;
+  margin: 50px auto;
+  text-align: left;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  padding: 8px 12px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+li:hover {
+  background: #f9f9f9;
+}
+
+/* Apply line‑through when a task is completed */
+li.completed {
+  text-decoration: line-through;
+  color: #777;
+}
