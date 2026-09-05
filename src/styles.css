@@ -1,0 +1,37 @@
+/* Basic reset & layout */
+body {
+  font-family: Arial, sans-serif;
+  margin: 2rem;
+  background: #f9f9f9;
+  color: #333;
+}
+h1 { margin-bottom: 1rem; }
+
+#todo-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+#new-task { flex: 1; padding: 0.5rem; }
+
+#todo-list {
+  list-style: none;
+  padding-left: 0;
+}
+#todo-list li {
+  padding: 0.5rem;
+  background: #fff;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+#todo-list li:hover {
+  background: #f0f0f0;
+}
+
+/* Completed style */
+.completed {
+  text-decoration: line-through;
+  color: #777;
+}
