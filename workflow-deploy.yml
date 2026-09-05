@@ -1,0 +1,48 @@
+# .github/workflows/deploy.yml
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]          # Triggers on pushes to the main branch
+
+permissions:
+  contents: read             # Required to read the repo contents
+  pages: write               # Required to publish to GitHub Pages
+  id-token: write            # Required for authentication
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'   # Use the Node version your project requires
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build     # Assumes your build output goes to ./dist
+
+      - name: Upload build artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist         # Adjust if your output folder differs
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        # The action automatically publishes the uploaded artifact
