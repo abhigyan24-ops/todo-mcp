@@ -1,20 +1,189 @@
-/* Basic styling for Todo V2 */
-body {
-  font-family: Arial, sans-serif;
+/* ==========================================================================
+   Dark Mode Theme
+   ========================================================================== */
+
+/* Base colours – light mode (fallback) */
+:root {
+  /* Primary colours */
+  --bg-color: #f9f9f9;
+  --text-color: #111;
+  --accent-color: #0066cc;
+  --accent-hover: #004999;
+  --border-color: #ddd;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+
+  /* Utility colours */
+  --placeholder-color: #888;
+  --error-color: #d93025;
+  --success-color: #34a853;
+}
+
+/* Dark mode overrides – triggered by user preference or manual toggle */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #1e1e1e;
+    --text-color: #f5f5f5;
+    --accent-color: #0099ff;
+    --accent-hover: #007acc;
+    --border-color: #444;
+    --shadow-color: rgba(255, 255, 255, 0.1);
+
+    --placeholder-color: #bbb;
+    --error-color: #ff6b6b;
+    --success-color: #8dc28f;
+  }
+}
+
+/* Global reset & transition for colour changes */
+*, *::before, *::after {
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-sizing: border-box;
+}
+
+html, body {
   margin: 0;
-  padding: 2rem;
-  background-color: #f4f4f4;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+               Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
 }
 
-h1 {
-  text-align: center;
-}
+/* Utility classes */
+.bg-primary   { background-color: var(--bg-color); }
+.text-primary { color: var(--text-color); }
+.accent       { color: var(--accent-color); }
+.accent:hover { color: var(--accent-hover); }
 
-#app {
-  max-width: 600px;
-  margin: 0 auto;
-  background: #fff;
+/* Layout components */
+.header, .footer {
+  background: var(--bg-color);
+  border-bottom: 1px solid var(--border-color);
   padding: 1rem;
+}
+
+.main {
+  padding: 1rem;
+}
+
+.todo-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
   border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 0.5rem;
+  box-shadow: 0 1px 2px var(--shadow-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.todo-item:hover {
+  border-color: var(--accent-color);
+}
+
+.todo-item input[type="checkbox"] {
+  margin-right: 0.75rem;
+}
+
+.todo-item button {
+  background: transparent;
+  border: none;
+  color: var(--accent-color);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.todo-item button:hover {
+  color: var(--accent-hover);
+}
+
+/* Forms & Inputs */
+input, textarea, select {
+  background: var(--bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+  width: 100%;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--placeholder-color);
+}
+
+button.primary {
+  background-color: var(--accent-color);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+button.primary:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+button.secondary {
+  background: transparent;
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button.secondary:hover {
+  background: var(--accent-color);
+  color: #fff;
+}
+
+/* Accessibility enhancements */
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}
+
+/* Optional: dark mode toggle button */
+.dark-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: var(--accent-color);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 1px 3px var(--shadow-color);
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.dark-toggle:hover {
+  background: var(--accent-hover);
+  transform: rotate(10deg);
 }
