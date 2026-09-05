@@ -1,34 +1,33 @@
-// Handles task creation in the Todo list app
-// ---------------------------------------------------
-// Listens for form submission, creates a new <li> element
-// with the entered task text, appends it to the <ul id="task-list>,
-// and clears the input field.
+import React, { useState } from "react";
+import "./App.css";
 
-// Wait for the DOM to be fully loaded before attaching event listeners
-document.addEventListener('DOMContentLoaded', () => {
-  // Grab references to the DOM elements
-  const form   = document.querySelector('#task-form');   // <form>
-  const input  = document.querySelector('#task-input');  // <input>
-  const list   = document.querySelector('#task-list');   // <ul>
+export default function App() {
+  const [tasks, setTasks] = useState([]);
+  const [input, setInput] = useState("");
 
-  // Attach submit handler to the form
-  form.addEventListener('submit', (e) => {
-    e.preventDefault(); // Stop the form from doing a page refresh
+  const addTask = (e) => {
+    e.preventDefault();
+    if (!input.trim()) return;
+    setTasks([...tasks, input.trim()]);
+    setInput("");
+  };
 
-    // Trim whitespace from the input value
-    const taskText = input.value.trim();
-
-    // Only proceed if the input is non-empty
-    if (!taskText) return;
-
-    // Create a new <li> element for the task
-    const li = document.createElement('li');
-    li.textContent = taskText;
-
-    // Append the new <li> to the task list
-    list.appendChild(li);
-
-    // Clear the input field for the next task
-    input.value = '';
-  });
-});
+  return (
+    <div className="todo-container">
+      <form className="todo-form" onSubmit={addTask}>
+        <input
+          type="text"
+          value={input}
+          placeholder="Add a new task"
+          onChange={(e) => setInput(e.target.value)}
+        />
+        <button type="submit">Add</button>
+      </form>
+      <ul className="todo-list">
+        {tasks.map((task, idx) => (
+          <li key={idx}>{task}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
