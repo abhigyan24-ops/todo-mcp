@@ -2,13 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Todo V2</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Todo v2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-  <h1>Todo V2</h1>
-  <p>This is a simple To-Do application. Open <code>app.js</code> to start working.</p>
+  <header>
+    <h1>Todo List</h1>
+  </header>
 
-  <script src="app.js"></script>
+  <main>
+    <form id="task-form">
+      <input type="text" id="task-input" placeholder="Enter a new task" required>
+      <button type="submit">Add Task</button>
+    </form>
+
+    <ul id="task-list">
+      <!-- Task items will be appended here -->
+    </ul>
+  </main>
 </body>
 </html>
